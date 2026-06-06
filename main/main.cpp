@@ -2,10 +2,12 @@
 
 int main()
 {
-    Combatant player1("Dwight", 30, 33, 15);
-    Combatant player2("Jim", 40, 44, 10);
+    Combatant player1("Dwight", 33, 33, 15);
     player1.printStatus();
-    player2.printStatus();
+    player1.applyDamage(10);
+    player1.printStatus();
+    player1.applyHealing(4);
+    player1.printStatus();
 
     return 0;
 }
