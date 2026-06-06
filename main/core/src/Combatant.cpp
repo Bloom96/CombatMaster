@@ -1,6 +1,6 @@
 #include "Combatant.h"
 
-Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass)
+Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass)
 {
     name = newName;
     currentHP = newCurrentHP;
