@@ -13,6 +13,7 @@ class Combatant{
     public:
         Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass);
         virtual void printStatus();
+        virtual void takeTurn() = 0;
         void applyDamage(int amount);
         void applyHealing(int amount);
 };

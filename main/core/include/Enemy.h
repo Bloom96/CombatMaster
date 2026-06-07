@@ -6,9 +6,10 @@
 class Enemy : public Combatant{
 
     private:
-        float challangeRating;
+        float challengeRating;
 
     public:
-        Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, float newChallangeRating);
+        Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, float newchallengeRating);
         void printStatus() override;
+        void takeTurn() override;
 };

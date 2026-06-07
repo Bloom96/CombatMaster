@@ -1,7 +1,7 @@
 #include "../include/Enemy.h"
 
-Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, float newChallangeRating)
-    : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass), challangeRating(newChallangeRating)
+Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, float newchallengeRating)
+    : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass), challengeRating(newchallengeRating)
 {
     
 }
@@ -9,5 +9,10 @@ Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorCl
 void Enemy::printStatus()
 {
     Combatant::printStatus();
-    std::cout << "CR : " << challangeRating << std::endl;
+    std::cout << "CR : " << challengeRating << std::endl;
+}
+
+void Enemy::takeTurn()
+{
+    std::cout << name << " takes turn" << std::endl;
 }
