@@ -4,7 +4,7 @@
 
 class Combatant{
 
-    private:
+    protected:
         std::string name;
         int currentHP;
         int maxHP;
@@ -12,7 +12,7 @@ class Combatant{
 
     public:
         Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass);
-        void printStatus();
+        virtual void printStatus();
         void applyDamage(int amount);
         void applyHealing(int amount);
 };

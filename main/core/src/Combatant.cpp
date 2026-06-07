@@ -1,4 +1,4 @@
-#include "Combatant.h"
+#include "../include/Combatant.h" 
 
 Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass)
 {
@@ -17,8 +17,8 @@ void Combatant::applyDamage(int amount)
 {
     if (0 < currentHP)
     {
-        if(amount > currentHP)
-    
+        if (amount > currentHP)
+        {
             currentHP = 0;
         }
         else
@@ -30,7 +30,7 @@ void Combatant::applyDamage(int amount)
 
 void Combatant::applyHealing(int amount)
 {
-        if ((amount + currentHP) > maxHP)
+    if ((amount + currentHP) > maxHP)
     {
         currentHP = maxHP;
     }

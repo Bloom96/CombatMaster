@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/silma/Desktop/DNDTool/CombatMaster",
-      "program": "c:/Users/silma/Desktop/DNDTool/CombatMaster/build/Debug/outDebug",
+      "cwd": "c:/Users/silma/Desktop/DNDTool/CombatMaster/main/core/src",
+      "program": "c:/Users/silma/Desktop/DNDTool/CombatMaster/main/core/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
