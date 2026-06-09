@@ -16,4 +16,9 @@ class Combatant{
         virtual void takeTurn() = 0;
         void applyDamage(int amount);
         void applyHealing(int amount);
+        virtual void setHPToMax() = 0;
+        virtual ~Combatant() 
+        {
+            std::cout << "Combatant base destroyed." << std::endl;
+        }
 };

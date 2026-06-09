@@ -16,3 +16,8 @@ void PlayerCharacter::takeTurn()
 {
     std::cout << name << " takes turn" << std::endl;
 }
+
+void PlayerCharacter::setHPToMax()
+{
+    currentHP = maxHP;
+}

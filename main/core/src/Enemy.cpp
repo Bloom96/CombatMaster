@@ -16,3 +16,9 @@ void Enemy::takeTurn()
 {
     std::cout << name << " takes turn" << std::endl;
 }
+
+void Enemy::setHPToMax()
+{
+    currentHP = maxHP;
+}
+
