@@ -35,37 +35,39 @@ void printAll<Combatant*>(const std::vector<Combatant*>& var)
 
 int main()
 {
-    std::map<std::string, int> initiativeTracker;
+    std::vector<std::pair<std::string, int>> dict;
 
-    initiativeTracker["Jim"] = 10;
-    initiativeTracker["Dwight"] = 15;
-    initiativeTracker["Angela"] = 13;
-    initiativeTracker["Karen"] = 2;
+    dict.push_back({"Jim", 10});
+    dict.push_back({"Dwight", 15});
+    dict.push_back({"Angela", 13});
+    dict.push_back({"Karen", 2});
+    dict.push_back({"Troll", 10});
+    dict.push_back({"Goblin", 20});
 
-    initiativeTracker["Troll"] = 10;
-    initiativeTracker["Goblin"] = 20;
-
-    for(auto it = initiativeTracker.begin(); it != initiativeTracker.end(); ++it)
+    std::sort(dict.begin(), dict.end(),
+    [] (const auto& a, const auto& b)
     {
-        std::cout << it->first << ": " << it->second << std::endl;
+        return a.second > b.second;
     }
-
-    auto found = std::find_if(initiativeTracker.begin(), initiativeTracker.end(),
-        [](const auto& a)
-        {
-            return a.second > 12;
-        }
     );
 
-    if (found != initiativeTracker.end())
-    {
-        std::cout << found->first << ": " << found->second << std::endl;
-    }
-
-    for( auto it =initiativeTracker.rbegin(); it != initiativeTracker.rend(); ++it)
+    for (auto it = dict.begin(); it != dict.end(); ++it)
     {
         std::cout << it->first << ": " << it->second << std::endl;
     }
+
+    std::sort(dict.begin(), dict.end(),
+    [] (const auto& a, const auto& b)
+    {
+        return a.second < b.second;
+    }
+    );
+
+    for (auto it = dict.begin(); it != dict.end(); ++it)
+    {
+        std::cout << it->first << ": " << it->second << std::endl;
+    }
+
 
     return 0;
 }
