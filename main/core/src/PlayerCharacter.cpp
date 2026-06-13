@@ -6,7 +6,7 @@ PlayerCharacter::PlayerCharacter(std::string newName, int newCurrentHP, int newM
 
 }
 
-void PlayerCharacter::printStatus()
+void PlayerCharacter::printStatus() const
 {
     Combatant::printStatus();
     std::cout << "Class: " << characterClass << " | Level: " << level << std::endl; 

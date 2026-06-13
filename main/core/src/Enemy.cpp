@@ -6,7 +6,7 @@ Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorCl
     
 }
 
-void Enemy::printStatus()
+void Enemy::printStatus() const
 {
     Combatant::printStatus();
     std::cout << "CR : " << challengeRating << std::endl;

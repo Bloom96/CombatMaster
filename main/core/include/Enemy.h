@@ -10,7 +10,7 @@ class Enemy : public Combatant{
 
     public:
         Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, float newchallengeRating);
-        void printStatus() override;
+        void printStatus() const override;
         void takeTurn() override;
         void setHPToMax() override;
         ~Enemy() override

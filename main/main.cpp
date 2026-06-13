@@ -1,39 +1,57 @@
 #include "core/include/Combatant.h"
 #include "core/include/PlayerCharacter.h"
 #include "core/include/Enemy.h"
+#include "core/include/Pool.h"
 #include <vector>
 #include <memory>
 
-void printAll(std::vector<Combatant*> combatants);
+//void printAll(std::vector<Combatant*> combatants);
 void runCombat(Combatant** playerturn, int count);
 void buildParty();
 void printRoster(const std::vector<Combatant*>& combatant);
 void addCombatant(std::vector<Combatant*>& combatant);
 void resetHP(Combatant*& combatant);
 
-template <typename T>
-void printAll(const std::vector<T>& container)
+template <typename cica>
+void printAll(const std::vector<cica>& var)
 {
-    for (const T& element : container)
+    for(const cica& cuki : var)
     {
-        std::cout << element << std::endl;
+        std::cout<< cuki << std::endl;
+    }
+}
+
+template <>
+void printAll<Combatant*>(const std::vector<Combatant*>& var)
+{
+    for(const Combatant* enemy : var)
+    {
+        enemy->printStatus();
     }
 }
 
 
 int main()
 {
-    std::vector<int> a;
-    a.push_back(1);
-    a.push_back(2);
-    a.push_back(3);
-    printAll(a);
+    std::vector<int> count;
 
-    std::vector<std::string> b;
-    b.push_back("Hello there\n");
-    b.push_back("GENERAL KENOBI\n");
-    printAll(b);
+    std::vector<std::string> name;
+    int all;
 
+    Pool<int> hpPool;
+
+    hpPool.add(100);
+    hpPool.add(75);
+
+    Pool<std::string> namePool;
+    namePool.add("Aragorn");
+    namePool.add("Legolas");
+
+    printAll(hpPool.getAll());
+    printAll(namePool.getAll());
+
+    std::cout << hpPool.getCount() << std::endl;
+    std::cout << namePool.getCount() << std::endl;
     return 0;
 }
 

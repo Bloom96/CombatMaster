@@ -8,7 +8,7 @@ Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int ne
     armorClass = newArmorClass;
 }
 
-void Combatant::printStatus()
+void Combatant::printStatus() const
 {
     std::cout << name << " | HP: " << currentHP << "/" << maxHP << " | AC: " << armorClass << std::endl;
 }

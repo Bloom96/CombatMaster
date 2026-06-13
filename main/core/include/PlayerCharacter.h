@@ -9,7 +9,7 @@ class PlayerCharacter : public Combatant{
 
     public:
         PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, std::string newCharacterClass, int newLevel);
-        void printStatus() override;
+        void printStatus() const override;
         void takeTurn() override;
         void setHPToMax() override;
         ~PlayerCharacter() override
