@@ -1,9 +1,11 @@
 #include "core/include/Combatant.h"
 #include "core/include/PlayerCharacter.h"
 #include "core/include/Enemy.h"
-#include "core/include/Pool.h"
+#include "core/include/StatTracker.h"
+#include <map>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 //void printAll(std::vector<Combatant*> combatants);
 void runCombat(Combatant** playerturn, int count);
@@ -33,29 +35,40 @@ void printAll<Combatant*>(const std::vector<Combatant*>& var)
 
 int main()
 {
-    std::vector<int> count;
+    std::map<std::string, int> initiativeTracker;
 
-    std::vector<std::string> name;
-    int all;
+    initiativeTracker["Jim"] = 10;
+    initiativeTracker["Dwight"] = 15;
+    initiativeTracker["Angela"] = 13;
+    initiativeTracker["Karen"] = 2;
 
-    Pool<int> hpPool;
+    initiativeTracker["Troll"] = 10;
+    initiativeTracker["Goblin"] = 20;
 
-    hpPool.add(100);
-    hpPool.add(75);
+    for(auto it = initiativeTracker.begin(); it != initiativeTracker.end(); ++it)
+    {
+        std::cout << it->first << ": " << it->second << std::endl;
+    }
 
-    Pool<std::string> namePool;
-    namePool.add("Aragorn");
-    namePool.add("Legolas");
+    auto found = std::find_if(initiativeTracker.begin(), initiativeTracker.end(),
+        [](const auto& a)
+        {
+            return a.second > 12;
+        }
+    );
 
-    printAll(hpPool.getAll());
-    printAll(namePool.getAll());
+    if (found != initiativeTracker.end())
+    {
+        std::cout << found->first << ": " << found->second << std::endl;
+    }
 
-    std::cout << hpPool.getCount() << std::endl;
-    std::cout << namePool.getCount() << std::endl;
+    for( auto it =initiativeTracker.rbegin(); it != initiativeTracker.rend(); ++it)
+    {
+        std::cout << it->first << ": " << it->second << std::endl;
+    }
+
     return 0;
 }
-
-
 
 void takeAllTurn(std::vector<Combatant*> combatants)
 {
@@ -82,8 +95,8 @@ void buildParty()
 
     std::vector<std::unique_ptr<Combatant>> e;
 
-    e.push_back(std::make_unique<Enemy>("Goblin", 10, 10, 12, 0.1));
-    e.push_back(std::make_unique<PlayerCharacter>("Jim", 10, 12, 15, "Paladin", 1));
+    e.push_back(std::make_unique<Enemy>("Goblin", 10, 10, 12, 0.1,1));
+    e.push_back(std::make_unique<PlayerCharacter>("Jim", 10, 12, 15, "Paladin", 1,1));
 
     e.at(0)->printStatus();
     e.at(1)->printStatus();
@@ -101,7 +114,7 @@ void printRoster(const std::vector<Combatant*>& combatant)
 
 void addCombatant(std::vector<Combatant*>& combatant)
 {
-    combatant.push_back(new PlayerCharacter("Jim",15,16,12,"Warlock", 2));
+    combatant.push_back(new PlayerCharacter("Jim",15,16,12,"Warlock", 2,0));
 }
 
 void resetHP(Combatant*& combatant)

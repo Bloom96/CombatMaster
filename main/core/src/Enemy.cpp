@@ -1,7 +1,7 @@
 #include "../include/Enemy.h"
 
-Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, float newchallengeRating)
-    : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass), challengeRating(newchallengeRating)
+Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, float newchallengeRating, int newInitiative)
+    : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass), challengeRating(newchallengeRating), initiative(newInitiative)
 {
     
 }
