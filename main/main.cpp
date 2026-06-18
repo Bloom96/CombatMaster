@@ -11,7 +11,7 @@
 void runCombat(Combatant** playerturn, int count);
 void buildParty();
 void printRoster(const std::vector<Combatant*>& combatant);
-void addCombatant(std::vector<Combatant*>& combatant);
+void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant);
 void resetHP(Combatant*& combatant);
 
 template <typename cica>
@@ -35,41 +35,27 @@ void printAll<Combatant*>(const std::vector<Combatant*>& var)
 
 int main()
 {
-    std::vector<std::pair<std::string, int>> dict;
+    int num_of_players;
 
-    dict.push_back({"Jim", 10});
-    dict.push_back({"Dwight", 15});
-    dict.push_back({"Angela", 13});
-    dict.push_back({"Karen", 2});
-    dict.push_back({"Troll", 10});
-    dict.push_back({"Goblin", 20});
+    std::string player_info;
+    std::vector<std::unique_ptr<Combatant>> Combatants;
+    std::vector<std::unique_ptr<Combatant>> Players;
 
-    std::sort(dict.begin(), dict.end(),
-    [] (const auto& a, const auto& b)
+    std::cin >> num_of_players;
+
+    for(int i = 0; i < num_of_players; i++)
     {
-        return a.second > b.second;
+        Players[i] = std::make_unique<PlayerCharacter>();
     }
-    );
-
-    for (auto it = dict.begin(); it != dict.end(); ++it)
-    {
-        std::cout << it->first << ": " << it->second << std::endl;
-    }
-
-    std::sort(dict.begin(), dict.end(),
-    [] (const auto& a, const auto& b)
-    {
-        return a.second < b.second;
-    }
-    );
-
-    for (auto it = dict.begin(); it != dict.end(); ++it)
-    {
-        std::cout << it->first << ": " << it->second << std::endl;
-    }
-
+    addCombatant(Combatants);
 
     return 0;
+}
+
+void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant)
+{
+    combatant.push_back(std::make_unique<PlayerCharacter>("Jim",15,16,12,"Warlock",2,0));
+    std::cout<< "JIM IS HERE" << std::endl;
 }
 
 void takeAllTurn(std::vector<Combatant*> combatants)
@@ -114,10 +100,7 @@ void printRoster(const std::vector<Combatant*>& combatant)
     }
 }
 
-void addCombatant(std::vector<Combatant*>& combatant)
-{
-    combatant.push_back(new PlayerCharacter("Jim",15,16,12,"Warlock", 2,0));
-}
+
 
 void resetHP(Combatant*& combatant)
 {
