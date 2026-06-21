@@ -6,8 +6,8 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <stdexcept>
 
-//void printAll(std::vector<Combatant*> combatants);
 void runCombat(Combatant** playerturn, int count);
 void buildParty();
 void printRoster(const std::vector<Combatant*>& combatant);
@@ -32,23 +32,58 @@ void printAll<Combatant*>(const std::vector<Combatant*>& var)
     }
 }
 
-
 int main()
 {
-    int num_of_players;
+    int num_of_characters;
+    int num_of_enemies;
 
-    std::string player_info;
+    std::string character_name, playerinfo_class;
     std::vector<std::unique_ptr<Combatant>> Combatants;
-    std::vector<std::unique_ptr<Combatant>> Players;
 
-    std::cin >> num_of_players;
+    std::cout << "How many player characters to add?" << std::endl;
+    std::cin >> num_of_characters;
 
-    for(int i = 0; i < num_of_players; i++)
+    try
     {
-        Players[i] = std::make_unique<PlayerCharacter>();
-    }
-    addCombatant(Combatants);
+        if (num_of_characters < 1)
+        {        
+            throw std::invalid_argument("Invalid number of player characters");
+        }
+        for(int i = 0; i < num_of_characters; i++)
+        {
+            std::cout << "Enter the name, and class of the player character: ";
+            std::cin >> character_name >> playerinfo_class;
+            Combatants.push_back(std::make_unique<PlayerCharacter>(character_name, 10, 10, 13, playerinfo_class, 1, 0));
+            Combatants.back()->printStatus();
+        }
 
+    } 
+    catch (const std::invalid_argument& e)
+    {
+        std::cout << e.what() << "\n";
+    }
+
+    std::cout << "How many enemy characters to add?" << std::endl;
+    std::cin >> num_of_enemies;
+
+    try
+    {
+        if (num_of_enemies < 1)
+        {        
+            throw std::invalid_argument("Invalid number of enemy characters");
+        }
+        for(int i = 0; i < num_of_enemies; i++)
+        {
+            std::cout << "Enter a unique name for an enemy character: ";
+            std::cin >> character_name;
+            Combatants.push_back(std::make_unique<Enemy>(character_name,10, 10, 10, 0.1, 0));
+            Combatants.back()->printStatus();
+        }
+    } 
+    catch (const std::invalid_argument& e)
+    {
+        std::cout << e.what() << "\n";
+    }
     return 0;
 }
 
@@ -66,7 +101,6 @@ void takeAllTurn(std::vector<Combatant*> combatants)
     }
 }
 
-
 void runCombat(Combatant** playerturn, int count)
 {
     for(int i = 0; i < count; i++)
@@ -75,36 +109,7 @@ void runCombat(Combatant** playerturn, int count)
     }
 }
 
-void buildParty()
-{
-    int size_of_party = 3;
-    
-    std::string enemy_name = "";
-
-    std::vector<std::unique_ptr<Combatant>> e;
-
-    e.push_back(std::make_unique<Enemy>("Goblin", 10, 10, 12, 0.1,1));
-    e.push_back(std::make_unique<PlayerCharacter>("Jim", 10, 12, 15, "Paladin", 1,1));
-
-    e.at(0)->printStatus();
-    e.at(1)->printStatus();
-    
-}
-
-
-void printRoster(const std::vector<Combatant*>& combatant)
-{
-    for (Combatant* c : combatant)
-    {
-        c->printStatus();
-    }
-}
-
-
-
 void resetHP(Combatant*& combatant)
 {
     combatant->setHPToMax();
 }
-
-
