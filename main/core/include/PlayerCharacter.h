@@ -6,10 +6,9 @@ class PlayerCharacter : public Combatant{
     private:
         std::string characterClass;
         int level;
-        int initiative;
 
     public:
-        PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, std::string newCharacterClass, int newLevel, int newInitiative);
+        PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative, std::string newCharacterClass, int newLevel);
         void printStatus() const override;
         void takeTurn() override;
         void setHPToMax() override;

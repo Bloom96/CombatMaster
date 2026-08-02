@@ -8,14 +8,17 @@ class Combatant{
         std::string name;
         int currentHP;
         int maxHP;
-        int armorClass;
+        int armorClass;        
+        int initiative;
 
     public:
-        Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass);
+        Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative);
         virtual void printStatus() const;
         virtual void takeTurn() = 0;
         void applyDamage(int amount);
         void applyHealing(int amount);
+        void setInitiative(int value);
+        int getInitiative() const;
         virtual void setHPToMax() = 0;
         virtual ~Combatant() 
         {

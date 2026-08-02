@@ -1,7 +1,7 @@
 #include "../include/PlayerCharacter.h"
 
-PlayerCharacter::PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, std::string newCharacterClass, int newLevel, int newInitiative) 
-        : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass), characterClass(newCharacterClass), level(newLevel), initiative(newInitiative)
+PlayerCharacter::PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative, std::string newCharacterClass, int newLevel) 
+        : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass, newInitiative), characterClass(newCharacterClass), level(newLevel)
 {
 
 }

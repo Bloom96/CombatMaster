@@ -7,6 +7,7 @@
 #include <memory>
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 
 void runCombat(Combatant** playerturn, int count);
 void buildParty();
@@ -59,7 +60,7 @@ int main()
         {
             std::cout << "Enter the name, and class of the player character: ";
             std::cin >> character_name >> playerinfo_class;
-            Combatants.push_back(std::make_unique<PlayerCharacter>(character_name, 10, 10, 13, playerinfo_class, 1, 0));
+            Combatants.push_back(std::make_unique<PlayerCharacter>(character_name, 10, 10, 13, 12, playerinfo_class, 0));
             Combatants.back()->printStatus();
         }
 
@@ -82,7 +83,7 @@ int main()
         {
             std::cout << "Enter a unique name for an enemy character: ";
             std::cin >> character_name;
-            Combatants.push_back(std::make_unique<Enemy>(character_name,10, 10, 10, 0.1, 0));
+            Combatants.push_back(std::make_unique<Enemy>(character_name,10, 10, 10, 10, 0.1));
             Combatants.back()->printStatus();
         }
     } 
@@ -91,13 +92,20 @@ int main()
         std::cout << e.what() << "\n";
     }
 
+    std::sort(Combatants.begin(), Combatants.end(), (
+        [](const std::unique_ptr<Combatant>& a, const std::unique_ptr<Combatant>& b)
+        {
+            return a->getInitiative() > b->getInitiative();
+        }
+    ));
+
     return 0;
 }
 
 
 void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant)
 {
-    combatant.push_back(std::make_unique<PlayerCharacter>("Jim",15,16,12,"Warlock",2,0));
+    combatant.push_back(std::make_unique<PlayerCharacter>("Jim",15,16,12,0,"Warlock",2));
     std::cout<< "JIM IS HERE" << std::endl;
 }
 
