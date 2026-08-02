@@ -32,6 +32,12 @@ void printAll<Combatant*>(const std::vector<Combatant*>& var)
     }
 }
 
+template <typename T, typename Creator>
+void addCombatants(std::vector<std::unique_ptr<Combatant>>& combatants, std::string promptmsg, Creator creator)
+{
+
+}
+
 int main()
 {
     int num_of_characters;
@@ -84,8 +90,10 @@ int main()
     {
         std::cout << e.what() << "\n";
     }
+
     return 0;
 }
+
 
 void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant)
 {
