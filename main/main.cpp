@@ -15,6 +15,8 @@ void printRoster(const std::vector<Combatant*>& combatant);
 void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant);
 void resetHP(Combatant*& combatant);
 
+void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant);
+
 template <typename cica>
 void printAll(const std::vector<cica>& var)
 {
@@ -98,6 +100,9 @@ int main()
             return a->getInitiative() > b->getInitiative();
         }
     ));
+    
+    std::cin.ignore();
+    loopThroughCombat(Combatants);
 
     return 0;
 }
@@ -128,4 +133,13 @@ void runCombat(Combatant** playerturn, int count)
 void resetHP(Combatant*& combatant)
 {
     combatant->setHPToMax();
+}
+
+void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
+{
+    std::cout << "COMBATANTS LISTED: \n";
+    for (std::unique_ptr<Combatant>& ele : combatant)
+    {        
+        ele->takeTurn();
+    }
 }

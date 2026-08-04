@@ -14,7 +14,11 @@ void PlayerCharacter::printStatus() const
 
 void PlayerCharacter::takeTurn()
 {
+    std::string s;
     std::cout << name << " takes turn" << std::endl;
+    std::cout << "What action does the player character take?" << std::endl;
+    std::getline(std::cin, s);
+    std::cout << "The player character called " << name << " took the action of " << s << std::endl;
 }
 
 void PlayerCharacter::setHPToMax()
