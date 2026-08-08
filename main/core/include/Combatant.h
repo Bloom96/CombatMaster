@@ -15,6 +15,7 @@ class Combatant{
         Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative);
         virtual void printStatus() const;
         virtual void takeTurn() = 0;
+        virtual std::string getType() const = 0;
 
         void applyDamage(int amount);
         void applyHealing(int amount);

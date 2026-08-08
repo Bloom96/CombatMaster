@@ -41,6 +41,9 @@ void addCombatants(std::vector<std::unique_ptr<Combatant>>& combatants, std::str
 
 }
 
+static int alivePlayers = 0;
+static int aliveEnemies = 0;
+
 int main()
 {
     int num_of_characters;
@@ -51,6 +54,7 @@ int main()
 
     std::cout << "How many player characters to add?" << std::endl;
     std::cin >> num_of_characters;
+    alivePlayers = num_of_characters;
 
     try
     {
@@ -74,6 +78,7 @@ int main()
 
     std::cout << "How many enemy characters to add?" << std::endl;
     std::cin >> num_of_enemies;
+    aliveEnemies = num_of_enemies;
 
     try
     {
@@ -137,9 +142,40 @@ void resetHP(Combatant*& combatant)
 
 void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
 {
+    bool isAlive;
     std::cout << "COMBATANTS LISTED: \n";
-    for (std::unique_ptr<Combatant>& ele : combatant)
-    {        
-        ele->takeTurn();
+    while ((alivePlayers > 0) && (aliveEnemies > 0))
+    {
+        for (std::unique_ptr<Combatant>& ele : combatant)
+        {        
+            isAlive = ele->isAlive();
+            if(!isAlive)
+            {
+                
+                if("Player" == ele->getType())
+                {
+                    alivePlayers = std::max(0, alivePlayers - 1);
+                }
+                else if("Enemy" == ele->getType())
+                {
+                    aliveEnemies = std::max(0, aliveEnemies - 1);
+                }
+                else
+                {
+                    /*Just catching invalid case*/
+                }
+                combatant.erase(
+                    std::remove_if(combatant.begin(), combatant.end(), [](const std::unique_ptr<Combatant>& ele)
+                    {
+                        return !ele->isAlive();
+                    }),
+                        combatant.end()
+                );
+            }
+            else
+            {
+                ele->takeTurn();
+            }
+        }
     }
 }

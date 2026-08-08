@@ -13,6 +13,8 @@ class Enemy : public Combatant{
         void printStatus() const override;
         void takeTurn() override;
         void setHPToMax() override;
+        std::string getType() const override;
+        
         ~Enemy() override
         {
             std::cout << name << " has been destroyed." << std::endl;

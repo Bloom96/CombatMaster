@@ -25,3 +25,8 @@ void PlayerCharacter::setHPToMax()
 {
     currentHP = maxHP;
 }
+
+std::string PlayerCharacter::getType() const
+{
+    return "Player";
+}

@@ -11,7 +11,10 @@ class PlayerCharacter : public Combatant{
         PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative, std::string newCharacterClass, int newLevel);
         void printStatus() const override;
         void takeTurn() override;
-        void setHPToMax() override;
+        void setHPToMax() override;       
+        std::string getType() const override;
+
+
         ~PlayerCharacter() override
         {
             std::cout << name << " has been destroyed." << std::endl;

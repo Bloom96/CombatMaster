@@ -26,3 +26,7 @@ void Enemy::setHPToMax()
     currentHP = maxHP;
 }
 
+std::string Enemy::getType() const
+{
+    return "Enemy character";
+}
