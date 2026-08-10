@@ -9,6 +9,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <algorithm>
+#include <limits>
 
 void runCombat(Combatant** playerturn, int count);
 void buildParty();
@@ -55,6 +56,7 @@ int main()
 
     std::cout << "How many player characters to add?" << std::endl;
     std::cin >> num_of_characters;
+    std::cin.ignore();
     alivePlayers = num_of_characters;
 
     try
@@ -65,8 +67,14 @@ int main()
         }
         for(int i = 0; i < num_of_characters; i++)
         {
-            std::cout << "Enter the name, and class of the player character: ";
-            std::cin >> character_name >> playerinfo_class;
+            std::cout << "Enter the name, and class of the player character in the following format: <name>'<class> ";
+            std::string line;
+            std::getline(std::cin, line);
+
+            size_t apostrophe = line.find('\'');
+            character_name = line.substr(0, apostrophe);
+            playerinfo_class = line.substr(apostrophe + 1);
+
             Combatants.push_back(std::make_unique<PlayerCharacter>(character_name, 10, 10, 13, 12, playerinfo_class, 0));
             Combatants.back()->printStatus();
         }
@@ -79,6 +87,7 @@ int main()
 
     std::cout << "How many enemy characters to add?" << std::endl;
     std::cin >> num_of_enemies;
+    std::cin.ignore();
     aliveEnemies = num_of_enemies;
 
     try
@@ -90,7 +99,7 @@ int main()
         for(int i = 0; i < num_of_enemies; i++)
         {
             std::cout << "Enter a unique name for an enemy character: ";
-            std::cin >> character_name;
+            std::getline(std::cin, character_name);
             Combatants.push_back(std::make_unique<Enemy>(character_name,10, 10, 10, 10, 0.1));
             Combatants.back()->printStatus();
         }
@@ -107,7 +116,6 @@ int main()
         }
     ));
     
-    std::cin.ignore();
     loopThroughCombat(Combatants);
 
     return 0;
@@ -151,6 +159,7 @@ void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
             {
                 std::cout << "Choose your action, by typing its' number: \n1: Attack \n2: Skip \n3: End encounter \n";
                 std::cin >> input;
+                std::cin.ignore();
                 action_selected = static_cast<ActionType>(input);
                 combatant[i]->takeTurn(action_selected);
                 i++; 
