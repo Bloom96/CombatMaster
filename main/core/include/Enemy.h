@@ -11,7 +11,7 @@ class Enemy : public Combatant{
     public:
         Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative, float newchallengeRating);
         void printStatus() const override;
-        void takeTurn() override;
+        void takeTurn(ActionType action, Combatant* target = nullptr) override;
         void setHPToMax() override;
         std::string getType() const override;
         

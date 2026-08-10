@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include "ActionType.h"
 
 class Combatant{
 
@@ -14,7 +15,7 @@ class Combatant{
     public:
         Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative);
         virtual void printStatus() const;
-        virtual void takeTurn() = 0;
+        virtual void takeTurn(ActionType action, Combatant* target = nullptr) = 0;
         virtual std::string getType() const = 0;
 
         void applyDamage(int amount);

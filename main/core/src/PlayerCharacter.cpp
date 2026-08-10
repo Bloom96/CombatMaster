@@ -12,7 +12,7 @@ void PlayerCharacter::printStatus() const
     std::cout << "Class: " << characterClass << " | Level: " << level << std::endl; 
 }
 
-void PlayerCharacter::takeTurn()
+void PlayerCharacter::takeTurn(ActionType action, Combatant* target)
 {
     std::string s;
     std::cout << name << " takes turn" << std::endl;

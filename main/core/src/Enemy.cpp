@@ -12,7 +12,7 @@ void Enemy::printStatus() const
     std::cout << "CR : " << challengeRating << std::endl;
 }
 
-void Enemy::takeTurn()
+void Enemy::takeTurn(ActionType action, Combatant* target)
 {
     std::string s;
     std::cout << name << " takes turn" << std::endl;

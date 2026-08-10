@@ -2,6 +2,7 @@
 #include "core/include/PlayerCharacter.h"
 #include "core/include/Enemy.h"
 #include "core/include/StatTracker.h"
+#include "core/include/ActionType.h"
 #include <map>
 #include <vector>
 #include <memory>
@@ -119,21 +120,6 @@ void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant)
     std::cout<< "JIM IS HERE" << std::endl;
 }
 
-void takeAllTurn(std::vector<Combatant*> combatants)
-{
-    for(Combatant* c : combatants)
-    {
-        c->takeTurn();
-    }
-}
-
-void runCombat(Combatant** playerturn, int count)
-{
-    for(int i = 0; i < count; i++)
-    {
-        playerturn[i]->takeTurn();
-    }
-}
 
 void resetHP(Combatant*& combatant)
 {
@@ -142,39 +128,32 @@ void resetHP(Combatant*& combatant)
 
 void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
 {
-    bool isAlive;
+    int input;
+    ActionType action_selected = ActionType::NONE;
     std::cout << "COMBATANTS LISTED: \n";
     while ((alivePlayers > 0) && (aliveEnemies > 0))
     {
-        for (std::unique_ptr<Combatant>& ele : combatant)
-        {        
-            isAlive = ele->isAlive();
-            if(!isAlive)
+        for (size_t i = 0; i < combatant.size(); /* no increment here */)
+        {
+            if (!combatant[i]->isAlive())
             {
-                
-                if("Player" == ele->getType())
+                if ("Player" == combatant[i]->getType())
                 {
                     alivePlayers = std::max(0, alivePlayers - 1);
                 }
-                else if("Enemy" == ele->getType())
+                else if ("Enemy" == combatant[i]->getType())
                 {
                     aliveEnemies = std::max(0, aliveEnemies - 1);
                 }
-                else
-                {
-                    /*Just catching invalid case*/
-                }
-                combatant.erase(
-                    std::remove_if(combatant.begin(), combatant.end(), [](const std::unique_ptr<Combatant>& ele)
-                    {
-                        return !ele->isAlive();
-                    }),
-                        combatant.end()
-                );
+                combatant.erase(combatant.begin() + i);
             }
             else
             {
-                ele->takeTurn();
+                std::cout << "Choose your action, by typing its' number: \n1: Attack \n2: Skip \n3: End encounter \n";
+                std::cin >> input;
+                action_selected = static_cast<ActionType>(input);
+                combatant[i]->takeTurn(action_selected);
+                i++; 
             }
         }
     }
