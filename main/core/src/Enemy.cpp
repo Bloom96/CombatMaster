@@ -28,5 +28,5 @@ void Enemy::setHPToMax()
 
 std::string Enemy::getType() const
 {
-    return "Enemy character";
+    return "Enemy";
 }

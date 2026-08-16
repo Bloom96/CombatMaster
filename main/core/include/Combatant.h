@@ -24,6 +24,7 @@ class Combatant{
 
 
         int getInitiative() const;
+        std::string getName() const;
         bool isAlive() const;
 
         virtual void setHPToMax() = 0;

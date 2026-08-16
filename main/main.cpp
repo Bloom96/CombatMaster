@@ -16,6 +16,7 @@ void buildParty();
 void printRoster(const std::vector<Combatant*>& combatant);
 void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant);
 void resetHP(Combatant*& combatant);
+void doDamage();
 
 void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant);
 
@@ -161,9 +162,57 @@ void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
                 std::cin >> input;
                 std::cin.ignore();
                 action_selected = static_cast<ActionType>(input);
-                combatant[i]->takeTurn(action_selected);
+                if(action_selected == ActionType::ATTACK)
+                {
+                    std::cout << "Select your target from the list by typing it's name";
+                    if (combatant[i]->getType() == "Player")
+                    {
+                        for (const std::unique_ptr<Combatant>& ele : combatant)
+                        {
+                            if (ele->getType() == "Enemy")
+                            {
+                                std::cout << ele->getName() << std::endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (const std::unique_ptr<Combatant>& ele : combatant)
+                        {
+                            if (ele->getType() == "Player")
+                            {
+                                std::cout << ele->getName() << std::endl;
+                            }
+                        }                       
+                    }
+                    std::string target;
+                    std::cin >> target;
+                    std::cin.ignore();
+                    auto it = std::find_if(combatant.begin(), combatant.end(),
+                    [&target](const std::unique_ptr<Combatant>& ele)
+                    {
+                        return ele->getName() == target;
+                    });
+                    if (it != combatant.end())
+                    {
+                        combatant[i]->takeTurn(action_selected, it->get());
+                    }
+                    else
+                    {
+                        std::cout << "Invalid target name. Turn skipped.\n";
+                    }
+                }
+                else
+                {
+                    combatant[i]->takeTurn(action_selected);
+                }
                 i++; 
             }
         }
     }
+}
+
+void doDamage()
+{
+
 }

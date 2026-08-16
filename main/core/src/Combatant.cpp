@@ -42,3 +42,8 @@ bool Combatant::isAlive() const
 {
     return currentHP > 0;
 }
+
+std::string Combatant::getName() const
+{
+    return name;
+}
