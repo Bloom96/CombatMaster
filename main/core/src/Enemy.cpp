@@ -11,8 +11,8 @@
  * Called functions : Combatant::Combatant (base ctor)
  * Output      : Constructs the object; no console output, returns nothing.
  */
-Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, bool newAlive, float newchallengeRating)
-    : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass, newBaseDamage, newInitiative, newAlive), challengeRating(newchallengeRating)
+Enemy::Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, float newchallengeRating)
+    : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass, newBaseDamage, newInitiative), challengeRating(newchallengeRating)
 {  
     // Empty body - all initialization already happened in the member-initializer list above.
 }

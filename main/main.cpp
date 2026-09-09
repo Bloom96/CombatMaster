@@ -139,7 +139,7 @@ int main()
 
             // Construct a new PlayerCharacter with hardcoded HP/AC/damage placeholders
             // (10/10/13/12), the parsed name/class, and level 0. Ownership moves into the vector.
-            Combatants.push_back(std::make_unique<PlayerCharacter>(character_name, 10, 10, 13, 12, playerinfo_class, 0));
+            Combatants.push_back(std::make_unique<PlayerCharacter>(character_name, 10, 10, 13, 12, 10, playerinfo_class, 0));
             Combatants.back()->printStatus();  // Echo the newly-added character's stats to the user.
         }
 
@@ -167,7 +167,7 @@ int main()
             std::getline(std::cin, character_name);
             // Construct a new Enemy with hardcoded HP/AC/damage/initiative (10/10/10/0)
             // and challenge rating 0.1. Ownership moves into the vector.
-            Combatants.push_back(std::make_unique<Enemy>(character_name,10, 10, 10, 10, 0.1));
+            Combatants.push_back(std::make_unique<Enemy>(character_name, 10, 10, 10, 10, 10, 0.1));
             Combatants.back()->printStatus();
         }
     } 
@@ -207,7 +207,7 @@ void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant)
 {
     // Construct and append a fixed test character: name "Jim", HP 15/16, AC 12,
     // 0 base damage, class "Warlock", level 2.
-    combatant.push_back(std::make_unique<PlayerCharacter>("Jim",15,16,12,0,"Warlock",2));
+    combatant.push_back(std::make_unique<PlayerCharacter>("Jim",15,16,12,0,10,"Warlock",2));
     std::cout<< "JIM IS HERE" << std::endl;   // Debug/confirmation message.
 }
 

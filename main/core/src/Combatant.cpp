@@ -12,8 +12,8 @@
  * Called functions : (none)
  * Output      : Constructs the object; no console output, returns nothing.
  */
-Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, bool newAlive)
-    : name(newName), currentHP(newCurrentHP), maxHP(newMaxHP), armorClass(newArmorClass), baseDamage(newBaseDamage), initiative(newInitiative), alive(newAlive)
+Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative)
+    : name(newName), currentHP(newCurrentHP), maxHP(newMaxHP), armorClass(newArmorClass), baseDamage(newBaseDamage), initiative(newInitiative)
 {
     // Empty body - all initialization already happened in the member-initializer list above.
 }

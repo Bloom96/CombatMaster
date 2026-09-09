@@ -6,12 +6,12 @@ class PlayerCharacter : public Combatant{
     private:
         std::string characterClass;
         int level;
-        int deathSaveSuccesses;
-        int deathSaveFailures;
+        int deathSaveSuccesses = 0;
+        int deathSaveFailures = 0;
         bool downed = false;
 
     public:
-        PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, bool newAlive, std::string newCharacterClass, int newLevel, int newDeathSaveSuccesses, int newDeathSaveFailures, bool newDowned);
+        PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, std::string newCharacterClass, int newLevel);
         void printStatus() const override;
         void takeTurn(ActionType action, Combatant* target = nullptr) override;
         void setHP(int value) override; 

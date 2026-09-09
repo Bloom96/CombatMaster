@@ -15,7 +15,7 @@ class Combatant{
         bool alive = true;
 
     public:
-        Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, bool newAlive);
+        Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative);
         virtual void printStatus() const;
         virtual void takeTurn(ActionType action, Combatant* target = nullptr) = 0;
         virtual std::string getType() const = 0;

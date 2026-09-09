@@ -9,7 +9,7 @@ class Enemy : public Combatant{
         float challengeRating;
 
     public:
-        Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, bool newAlive, float newchallengeRating);
+        Enemy(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, float newchallengeRating);
         void printStatus() const override;
         void takeTurn(ActionType action, Combatant* target = nullptr) override;
         void setHP(int value) override; 
