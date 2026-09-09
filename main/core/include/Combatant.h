@@ -24,6 +24,7 @@ class Combatant{
         void applyHealing(int amount);
         void setInitiative(int value);
         void setAlive(bool value);
+        void setHPToMax();
 
         int getInitiative() const;
         std::string getName() const;
@@ -31,7 +32,6 @@ class Combatant{
         int getMaxHP() const;
         bool isAlive() const;
         int getBaseDamage() const;
-        bool isActive() const;
 
         virtual void onDeath() = 0;
         virtual void setHP(int value) = 0;

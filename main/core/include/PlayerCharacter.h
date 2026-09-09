@@ -8,7 +8,7 @@ class PlayerCharacter : public Combatant{
         int level;
         int deathSaveSuccesses;
         int deathSaveFailures;
-        bool downed;
+        bool downed = false;
 
     public:
         PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, bool newAlive, std::string newCharacterClass, int newLevel, int newDeathSaveSuccesses, int newDeathSaveFailures, bool newDowned);
@@ -18,6 +18,7 @@ class PlayerCharacter : public Combatant{
         void onDeath() override;  
         void rollForDeathSaving();
         void resetDeathSaveCounters();
+        void evaluateDeathSaving();
         
 
         std::string getType() const override;
