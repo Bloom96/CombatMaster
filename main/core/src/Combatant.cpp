@@ -1,7 +1,8 @@
 #include "../include/Combatant.h" 
+#include <algorithm>
 
-Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative)
-    : name(newName), currentHP(newCurrentHP), maxHP(newMaxHP), armorClass(newArmorClass), initiative(newInitiative)
+Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, bool newAlive)
+    : name(newName), currentHP(newCurrentHP), maxHP(newMaxHP), armorClass(newArmorClass), baseDamage(newBaseDamage), initiative(newInitiative), alive(newAlive)
 {
     
 }
@@ -13,19 +14,14 @@ void Combatant::printStatus() const
 
 void Combatant::applyDamage(int amount)
 {
+    amount = std::max(0, amount);
     currentHP = std::max(0, currentHP - amount);
 }
 
 void Combatant::applyHealing(int amount)
 {
-    if ((amount + currentHP) > maxHP)
-    {
-        currentHP = maxHP;
-    }
-    else
-    {
-        currentHP += amount;
-    }
+    amount = std::max(0, amount);
+    currentHP = std::min(maxHP, currentHP + amount);
 }
 
 void Combatant::setInitiative(int value)
@@ -40,10 +36,39 @@ int Combatant::getInitiative() const
 
 bool Combatant::isAlive() const
 {
-    return currentHP > 0;
+    return alive;
 }
 
 std::string Combatant::getName() const
 {
     return name;
+}
+
+int Combatant::getBaseDamage() const
+{
+    return baseDamage;
+}
+
+int Combatant::getCurrentHP() const
+{
+    return currentHP;
+}
+
+int Combatant::getMaxHP() const
+{
+    return maxHP;
+}
+
+bool Combatant::isActive() const
+{
+    if(true == isAlive())
+    {
+        return true;
+    }
+    return false;
+}
+
+void Combatant::setAlive(bool value)
+{
+    alive = value;
 }

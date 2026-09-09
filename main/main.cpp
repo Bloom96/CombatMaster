@@ -16,7 +16,6 @@ void buildParty();
 void printRoster(const std::vector<Combatant*>& combatant);
 void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant);
 void resetHP(Combatant*& combatant);
-void doDamage();
 
 void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant);
 
@@ -138,11 +137,12 @@ void resetHP(Combatant*& combatant)
 void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
 {
     int input;
+    bool encounterOngoing = true;
     ActionType action_selected = ActionType::NONE;
-    std::cout << "COMBATANTS LISTED: \n";
-    while ((alivePlayers > 0) && (aliveEnemies > 0))
+
+    while ((alivePlayers > 0) && (aliveEnemies > 0) && (true == encounterOngoing))
     {
-        for (size_t i = 0; i < combatant.size(); /* no increment here */)
+        for (size_t i = 0; i < combatant.size() && true == encounterOngoing; /* no increment here */)
         {
             if (!combatant[i]->isAlive())
             {
@@ -159,10 +159,12 @@ void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
             else
             {
                 std::cout << "Choose your action, by typing its' number: \n1: Attack \n2: Skip \n3: End encounter \n";
-                std::cin >> input;
-                std::cin.ignore();
+                std::string menu_choice;
+                std::getline(std::cin, menu_choice);
+                input = std::stoi(menu_choice);
                 action_selected = static_cast<ActionType>(input);
-                if(action_selected == ActionType::ATTACK)
+                
+                if(ActionType::ATTACK == action_selected)
                 {
                     std::cout << "Select your target from the list by typing it's name";
                     if (combatant[i]->getType() == "Player")
@@ -186,8 +188,7 @@ void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
                         }                       
                     }
                     std::string target;
-                    std::cin >> target;
-                    std::cin.ignore();
+                    std::getline(std::cin, target);
                     auto it = std::find_if(combatant.begin(), combatant.end(),
                     [&target](const std::unique_ptr<Combatant>& ele)
                     {
@@ -202,17 +203,16 @@ void loopThroughCombat(std::vector<std::unique_ptr<Combatant>>& combatant)
                         std::cout << "Invalid target name. Turn skipped.\n";
                     }
                 }
-                else
+                else if(ActionType::SKIP == action_selected)
                 {
                     combatant[i]->takeTurn(action_selected);
+                }
+                else
+                {
+                    encounterOngoing = false;
                 }
                 i++; 
             }
         }
     }
-}
-
-void doDamage()
-{
-
 }
