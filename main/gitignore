@@ -1,0 +1,28 @@
+# --- Build output ---
+# CMake generates ALL of this. Never commit it.
+build/
+build*/
+out/
+
+# --- VS Code ---
+.vscode/
+# If you want to share editor settings with future-you or teammates,
+# comment out the lines below to keep just those files:
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+
+# --- Compiled/binary artifacts (in case they ever land outside build/) ---
+*.exe
+*.obj
+*.o
+*.dll
+*.lib
+*.a
+*.pdb
+*.ilk
+
+# --- OS junk ---
+Thumbs.db
+Desktop.ini
+.DS_Store
