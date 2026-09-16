@@ -10,6 +10,8 @@
 #include <stdexcept>
 #include <algorithm>
 #include <limits>
+#include <QApplication>
+#include "ui/MainWindow.h"
 
 // ---------------------------------------------------------------------
 // Forward declarations.
@@ -107,7 +109,7 @@ static int aliveEnemies = 0;
  * Output      : Interactive console I/O throughout roster setup;
  *               returns 0 on normal completion.
  */
-int main()
+/*int main()
 {
     int num_of_characters;
     int num_of_enemies;
@@ -190,6 +192,13 @@ int main()
     loopThroughCombat(Combatants);
 
     return 0;
+}*/
+
+int main(int argc, char* argv[]) {
+    QApplication app(argc, argv);
+    MainWindow window;
+    window.show();
+    return app.exec();
 }
 
 /**

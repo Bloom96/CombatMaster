@@ -17,6 +17,7 @@ add_executable(CombatMaster
     core/src/Combatant.cpp
     core/src/Enemy.cpp
     core/src/PlayerCharacter.cpp
+    ui/mainwindow.cpp
 )
 
 target_include_directories(CombatMaster PRIVATE core/include)
