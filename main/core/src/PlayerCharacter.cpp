@@ -19,8 +19,8 @@
  * Called functions : Combatant::Combatant (base ctor)
  * Output      : Constructs the object; no console output, returns nothing.
  */
-PlayerCharacter::PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, std::string newCharacterClass, int newLevel) 
-        : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass, newBaseDamage, newInitiative), characterClass(newCharacterClass), level(newLevel)
+PlayerCharacter::PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative, std::string newCharacterClass, int newLevel) 
+        : Combatant(newName, newCurrentHP, newMaxHP, newArmorClass, newInitiative), characterClass(newCharacterClass), level(newLevel)
 {
     // Empty body - all initialization already happened in the member-initializer list above.
 }
@@ -85,7 +85,7 @@ void PlayerCharacter::takeTurn(ActionType action, Combatant* target)
     if((nullptr != target)&&(ActionType::ACT == action))
     {
         std::cout << "The player character " << name << " made the action: " << actionToString(action) <<", against the target: " << target->getName() << std::endl;
-        target->applyDamage(baseDamage);   // Deal this PC's base damage to the target; may trigger target's onDeath() internally.
+        //target->applyDamage(baseDamage);   // Deal this PC's base damage to the target; may trigger target's onDeath() internally.
         std::cout << "Target now has " << target->getCurrentHP() << " out of " << target->getMaxHP() << std::endl;
     }
     // FLAG: same ActionType::ACT concern as above.

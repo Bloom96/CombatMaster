@@ -12,8 +12,8 @@
  * Called functions : (none)
  * Output      : Constructs the object; no console output, returns nothing.
  */
-Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative)
-    : name(newName), currentHP(newCurrentHP), maxHP(newMaxHP), armorClass(newArmorClass), baseDamage(newBaseDamage), initiative(newInitiative)
+Combatant::Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative)
+    : name(newName), currentHP(newCurrentHP), maxHP(newMaxHP), armorClass(newArmorClass), initiative(newInitiative)
 {
     // Empty body - all initialization already happened in the member-initializer list above.
 }
@@ -141,25 +141,6 @@ std::string Combatant::getName() const
     return name;
 }
 
-/**
- * getBaseDamage
- * -----------------------------------------------------------------
- * Description : Returns this combatant's base damage value.
- * Called functions : (none)
- * Output      : Returns baseDamage.
- *
- * NOTE - NOT CURRENTLY CALLED: baseDamage is protected, and both
- * Enemy::takeTurn() and PlayerCharacter::takeTurn() read the member
- * directly (target->applyDamage(baseDamage)) rather than going through
- * this getter. Not broken, just currently redundant with direct member
- * access from within the class hierarchy - this getter would only
- * matter to code outside the hierarchy (e.g. a future UI layer
- * displaying a combatant's stats) that only has a Combatant* to work with.
- */
-int Combatant::getBaseDamage() const
-{
-    return baseDamage;
-}
 
 /**
  * getCurrentHP

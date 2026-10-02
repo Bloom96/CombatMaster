@@ -9,13 +9,12 @@ class Combatant{
         std::string name;
         int currentHP;
         int maxHP;
-        int armorClass;   
-        int baseDamage;     
+        int armorClass;     
         int initiative;
         bool alive = true;
 
     public:
-        Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative);
+        Combatant(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative);
         virtual void printStatus() const;
         virtual void takeTurn(ActionType action, Combatant* target = nullptr) = 0;
         virtual std::string getType() const = 0;
@@ -31,7 +30,6 @@ class Combatant{
         int getCurrentHP() const;
         int getMaxHP() const;
         bool isAlive() const;
-        int getBaseDamage() const;
 
         virtual void onDeath() = 0;
         virtual void setHP(int value) = 0;

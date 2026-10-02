@@ -95,104 +95,6 @@ void addCombatants(std::vector<std::unique_ptr<Combatant>>& combatants, std::str
 static int alivePlayers = 0;
 static int aliveEnemies = 0;
 
-/**
- * main
- * -----------------------------------------------------------------
- * Description : Entry point. Prompts the user to build a roster of
- *               player characters and enemies, sorts them by initiative,
- *               then hands control to loopThroughCombat() to run the
- *               encounter.
- * Called functions : PlayerCharacter::PlayerCharacter (ctor),
- *                     Enemy::Enemy (ctor), Combatant::printStatus(),
- *                     Combatant::getInitiative(), std::sort,
- *                     loopThroughCombat()
- * Output      : Interactive console I/O throughout roster setup;
- *               returns 0 on normal completion.
- */
-/*int main()
-{
-    int num_of_characters;
-    int num_of_enemies;
-
-    std::string character_name, playerinfo_class;
-    std::vector<std::unique_ptr<Combatant>> Combatants;   // Owns every combatant for the whole encounter.
-
-    // --- Player character setup ---
-    std::cout << "How many player characters to add?" << std::endl;
-    std::cin >> num_of_characters;
-    std::cin.ignore();                 // Discard the leftover newline so getline() below doesn't read an empty line.
-    alivePlayers = num_of_characters;  // Seed the alive-player counter used by the combat loop.
-
-    try
-    {
-        if (num_of_characters < 1)
-        {        
-            throw std::invalid_argument("Invalid number of player characters");   // Guard against 0 or negative input.
-        }
-        for(int i = 0; i < num_of_characters; i++)
-        {
-            std::cout << "Enter the name, and class of the player character in the following format: <name>'<class> ";
-            std::string line;
-            std::getline(std::cin, line);      // Read the whole "name'class" line at once.
-
-            size_t apostrophe = line.find('\'');            // Locate the separator between name and class.
-            character_name = line.substr(0, apostrophe);     // Everything before the apostrophe = name.
-            playerinfo_class = line.substr(apostrophe + 1);  // Everything after it = class.
-
-            // Construct a new PlayerCharacter with hardcoded HP/AC/damage placeholders
-            // (10/10/13/12), the parsed name/class, and level 0. Ownership moves into the vector.
-            Combatants.push_back(std::make_unique<PlayerCharacter>(character_name, 10, 10, 13, 12, 10, playerinfo_class, 0));
-            Combatants.back()->printStatus();  // Echo the newly-added character's stats to the user.
-        }
-
-    } 
-    catch (const std::invalid_argument& e)
-    {
-        std::cout << e.what() << "\n";     // Report the bad-input error and continue (no retry loop).
-    }
-
-    // --- Enemy setup ---
-    std::cout << "How many enemy characters to add?" << std::endl;
-    std::cin >> num_of_enemies;
-    std::cin.ignore();                 // Same newline-flush purpose as above.
-    aliveEnemies = num_of_enemies;     // Seed the alive-enemy counter.
-
-    try
-    {
-        if (num_of_enemies < 1)
-        {        
-            throw std::invalid_argument("Invalid number of enemy characters");
-        }
-        for(int i = 0; i < num_of_enemies; i++)
-        {
-            std::cout << "Enter a unique name for an enemy character: ";
-            std::getline(std::cin, character_name);
-            // Construct a new Enemy with hardcoded HP/AC/damage/initiative (10/10/10/0)
-            // and challenge rating 0.1. Ownership moves into the vector.
-            Combatants.push_back(std::make_unique<Enemy>(character_name, 10, 10, 10, 10, 10, 0.1));
-            Combatants.back()->printStatus();
-        }
-    } 
-    catch (const std::invalid_argument& e)
-    {
-        std::cout << e.what() << "\n";
-    }
-
-    // Sort the whole roster in descending initiative order (highest goes first),
-    // using a lambda comparator on each unique_ptr's underlying Combatant.
-    std::sort(Combatants.begin(), Combatants.end(), (
-        [](const std::unique_ptr<Combatant>& a, const std::unique_ptr<Combatant>& b)
-        {
-            return a->getInitiative() > b->getInitiative();
-        }
-    ));
-    
-    // Hand off to the main combat loop; runs until one side is wiped out
-    // or the user explicitly ends the encounter.
-    loopThroughCombat(Combatants);
-
-    return 0;
-}*/
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
@@ -216,7 +118,7 @@ void addCombatant(std::vector<std::unique_ptr<Combatant>>& combatant)
 {
     // Construct and append a fixed test character: name "Jim", HP 15/16, AC 12,
     // 0 base damage, class "Warlock", level 2.
-    combatant.push_back(std::make_unique<PlayerCharacter>("Jim",15,16,12,0,10,"Warlock",2));
+    combatant.push_back(std::make_unique<PlayerCharacter>("Jim",15,16,12,10,"Warlock",2));
     std::cout<< "JIM IS HERE" << std::endl;   // Debug/confirmation message.
 }
 

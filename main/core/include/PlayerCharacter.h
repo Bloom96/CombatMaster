@@ -11,7 +11,7 @@ class PlayerCharacter : public Combatant{
         bool downed = false;
 
     public:
-        PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newBaseDamage, int newInitiative, std::string newCharacterClass, int newLevel);
+        PlayerCharacter(std::string newName, int newCurrentHP, int newMaxHP, int newArmorClass, int newInitiative, std::string newCharacterClass, int newLevel);
         void printStatus() const override;
         void takeTurn(ActionType action, Combatant* target = nullptr) override;
         void setHP(int value) override; 
