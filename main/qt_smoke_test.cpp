@@ -7,6 +7,13 @@
 #include <QSpinBox>
 #include <QComboBox>
 #include <QLineEdit>
+#include <QDebug>
+#include <vector>
+#include <memory>
+
+#include "Enemy.h"
+#include "PlayerCharacter.h"
+#include "Combatant.h"
 
 #define TYEP_COLUMN 0
 #define NAME_COLUMN 1
@@ -23,11 +30,11 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     QWidget* window = new QWidget;
-    QTableWidget* table = new QTableWidget(0, 9);
+    QTableWidget* table = new QTableWidget(0, 10);
     QPushButton* addRowButton = new QPushButton("+ Add row");
+    QPushButton* readValuesOfRow = new QPushButton("Read values");
 
     QVBoxLayout* layout = new QVBoxLayout(window);
-
 
     table->setHorizontalHeaderLabels({"Type", "Name", "Current HP","Maximum HP", "AC", "Initiative", "Level", "Class", "CR", "XP"});
 
@@ -36,8 +43,6 @@ int main(int argc, char *argv[]) {
         QComboBox* type = new QComboBox;
         type->addItems({"Player", "Enemy"});
         table->insertRow(row);
-
-
         
         table->setCellWidget(row, TYEP_COLUMN, type);
         table->setCellWidget(row, CURRENT_HP_COLUMN, new QSpinBox);
@@ -63,6 +68,7 @@ int main(int argc, char *argv[]) {
         xp->setToolTip("Only usable for Enemy character type");
         table->setCellWidget(row, CHALL_RATE_COLUMN, cr);       
         table->setCellWidget(row, EXP_RATE_COLUMN, xp);  
+
 
         QObject::connect(type, &QComboBox::currentTextChanged, [cr, xp, lvl, cls](const QString& text) {
             if("Enemy" == text)
@@ -93,9 +99,64 @@ int main(int argc, char *argv[]) {
  
     
     });
+    std::vector<std::unique_ptr<Combatant>> roster;
+    QObject::connect(readValuesOfRow, &QPushButton::clicked, [table, &roster](){
+               
+        for(int i = 0; i < table->rowCount(); i++)
+        {   
+            QComboBox* type = qobject_cast<QComboBox*>(table->cellWidget(i, TYEP_COLUMN));
+
+            QTableWidgetItem* name =  table->item(i, NAME_COLUMN);
+
+
+            qDebug() << type->currentText();
+            QSpinBox* curhp = qobject_cast<QSpinBox*>(table->cellWidget(i, CURRENT_HP_COLUMN));
+            qDebug() << curhp->value();
+            QSpinBox* maxhp = qobject_cast<QSpinBox*>(table->cellWidget(i, MAX_HP_COLUMN));
+            qDebug() << maxhp->value();
+            QSpinBox* init = qobject_cast<QSpinBox*>(table->cellWidget(i, INITIATIVE_COLUMN));
+            qDebug() << init->value();
+            QSpinBox* armor = qobject_cast<QSpinBox*>(table->cellWidget(i, AC_COLUMN));
+            qDebug() << armor->value();
+
+            std::string newname = "Unnamed";
+            if(name != nullptr)
+            {
+                newname = name->text().toStdString(); 
+            }
+            qDebug() << newname;
+
+
+            if(type->currentText() == "Player")
+            {
+                QSpinBox* levl = qobject_cast<QSpinBox*>(table->cellWidget(i, LEVEL_COLUMN));
+                qDebug() << levl->value();
+                QLineEdit* classe = qobject_cast<QLineEdit*>(table->cellWidget(i, CLASS_COLUMN));
+                qDebug() << classe->text();
+                
+                std::unique_ptr<PlayerCharacter> playerchar =
+                std::make_unique<PlayerCharacter>(newname, curhp->value(), maxhp->value(), armor->value(), init->value(), classe->text().toStdString(), levl->value());  
+                qDebug() << playerchar->getCurrentHP();
+                roster.push_back(std::move(playerchar));
+            }
+            else if(type->currentText() == "Enemy")
+            {
+                QSpinBox* challrate = qobject_cast<QSpinBox*>(table->cellWidget(i, CHALL_RATE_COLUMN));
+                qDebug() << challrate->value();
+                QSpinBox* exp = qobject_cast<QSpinBox*>(table->cellWidget(i, EXP_RATE_COLUMN));
+                qDebug() << exp->value();
+                float crate = static_cast<float>(challrate->value());
+                std::unique_ptr<Enemy> enemy = 
+                std::make_unique<Enemy>(newname, curhp->value(), maxhp->value(), armor->value(), init->value(), crate);
+                qDebug() << enemy->getCurrentHP();
+                roster.push_back(std::move(enemy));
+            }
+        }
+    });
 
     layout->addWidget(table);
     layout->addWidget(addRowButton);
+    layout->addWidget(readValuesOfRow);
     window->resize(900, 600);
     window->show();
 

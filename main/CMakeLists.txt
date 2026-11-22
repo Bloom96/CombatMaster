@@ -23,5 +23,12 @@ add_executable(CombatMaster
 target_include_directories(CombatMaster PRIVATE core/include)
 target_link_libraries(CombatMaster PRIVATE Qt6::Widgets)
 
-add_executable(QtSmokeTest qt_smoke_test.cpp)
+add_executable(QtSmokeTest
+    qt_smoke_test.cpp
+    core/src/Combatant.cpp
+    core/src/Enemy.cpp
+    core/src/PlayerCharacter.cpp
+)
+
+target_include_directories(QtSmokeTest PRIVATE core/include)
 target_link_libraries(QtSmokeTest PRIVATE Qt6::Widgets)
