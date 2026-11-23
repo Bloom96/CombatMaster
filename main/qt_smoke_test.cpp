@@ -43,7 +43,19 @@ int main(int argc, char *argv[]) {
         QComboBox* type = new QComboBox;
         type->addItems({"Player", "Enemy"});
         table->insertRow(row);
-        
+
+        QComboBox* chall_rate = new QComboBox;
+        chall_rate->addItem("0", 0);
+        chall_rate->addItem("1/8", 0.125);
+        chall_rate->addItem("1/4", 0.25);
+        chall_rate->addItem("1/2", 0.5);
+
+        QString s = "";
+        for (int i = 1; i <= 30; i++)
+        {
+            s = QString::number(i);
+            chall_rate->addItem(s, i);
+        }       
         table->setCellWidget(row, TYEP_COLUMN, type);
         table->setCellWidget(row, CURRENT_HP_COLUMN, new QSpinBox);
         table->setCellWidget(row, MAX_HP_COLUMN, new QSpinBox);
@@ -58,26 +70,25 @@ int main(int argc, char *argv[]) {
         cls->setStyleSheet("QLineEdit:disabled { border: 1px solid red; }");
         table->setCellWidget(row, LEVEL_COLUMN, lvl);
         table->setCellWidget(row, CLASS_COLUMN, cls);
-        QSpinBox* cr = new QSpinBox;
         QSpinBox* xp = new QSpinBox;  
-        cr->setEnabled(false);
+        chall_rate->setEnabled(false);
         xp->setEnabled(false);
-        cr->setStyleSheet("QSpinBox:disabled { border: 1px solid red; }");
-        cr->setToolTip("Only usable for Enemy character type");
+        chall_rate->setStyleSheet("QComboBox:disabled { border: 1px solid red; }");
+        chall_rate->setToolTip("Only usable for Enemy character type");
         xp->setStyleSheet("QSpinBox:disabled { border: 1px solid red; }");
         xp->setToolTip("Only usable for Enemy character type");
-        table->setCellWidget(row, CHALL_RATE_COLUMN, cr);       
+        table->setCellWidget(row, CHALL_RATE_COLUMN, chall_rate);       
         table->setCellWidget(row, EXP_RATE_COLUMN, xp);  
 
 
-        QObject::connect(type, &QComboBox::currentTextChanged, [cr, xp, lvl, cls](const QString& text) {
+        QObject::connect(type, &QComboBox::currentTextChanged, [chall_rate, xp, lvl, cls](const QString& text) {
             if("Enemy" == text)
             {   
-                cr->setEnabled(true);
+                chall_rate->setEnabled(true);
                 xp->setEnabled(true);
                 lvl->setEnabled(false);
                 cls->setEnabled(false);
-                cr->setToolTip("");
+                chall_rate->setToolTip("");
                 xp->setToolTip("");
                 
                 lvl->setToolTip("Only usable for Player character type");
@@ -87,12 +98,12 @@ int main(int argc, char *argv[]) {
             {
                 lvl->setEnabled(true);
                 cls->setEnabled(true);
-                cr->setEnabled(false);
+                chall_rate->setEnabled(false);
                 xp->setEnabled(false);
                 lvl->setToolTip("");
                 cls->setToolTip("");
                 
-                cr->setToolTip("Only usable for Enemy character type");
+                chall_rate->setToolTip("Only usable for Enemy character type");
                 xp->setToolTip("Only usable for Enemy character type");
             }
         });      
@@ -107,7 +118,6 @@ int main(int argc, char *argv[]) {
             QComboBox* type = qobject_cast<QComboBox*>(table->cellWidget(i, TYEP_COLUMN));
 
             QTableWidgetItem* name =  table->item(i, NAME_COLUMN);
-
 
             qDebug() << type->currentText();
             QSpinBox* curhp = qobject_cast<QSpinBox*>(table->cellWidget(i, CURRENT_HP_COLUMN));
@@ -141,17 +151,25 @@ int main(int argc, char *argv[]) {
             }
             else if(type->currentText() == "Enemy")
             {
-                QSpinBox* challrate = qobject_cast<QSpinBox*>(table->cellWidget(i, CHALL_RATE_COLUMN));
-                qDebug() << challrate->value();
+                QComboBox* challrate = qobject_cast<QComboBox*>(table->cellWidget(i, CHALL_RATE_COLUMN));
+                qDebug() << challrate->currentData();
+                float crate = challrate->currentData().toFloat();
                 QSpinBox* exp = qobject_cast<QSpinBox*>(table->cellWidget(i, EXP_RATE_COLUMN));
                 qDebug() << exp->value();
-                float crate = static_cast<float>(challrate->value());
                 std::unique_ptr<Enemy> enemy = 
                 std::make_unique<Enemy>(newname, curhp->value(), maxhp->value(), armor->value(), init->value(), crate);
                 qDebug() << enemy->getCurrentHP();
                 roster.push_back(std::move(enemy));
             }
         }
+
+        table->setRowCount(0);
+
+        for(int i = 0; i < roster.size(); i++)
+        {
+            qDebug() << roster[i]->getCurrentHP();
+        }
+
     });
 
     layout->addWidget(table);
